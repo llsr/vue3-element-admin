@@ -8,9 +8,12 @@ import installElementPlus from '@/plugins/element'
 import 'normalize.css/normalize.css'
 // 全局 css
 import '@/styles/index.scss'
+// svg icons
+import initSvgIcon from '@/icons/index'
 
 createApp(App)
   .use(store)
   .use(router)
   .use(installElementPlus)
+  .use(initSvgIcon)
   .mount('#app')
