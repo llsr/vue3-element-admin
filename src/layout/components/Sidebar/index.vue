@@ -5,7 +5,6 @@
     <el-menu
       class="sidebar-container-menu"
       mode="vertical"
-      router
       :default-active="activeMenu"
       :background-color="scssVariables.menuBg"
       :text-color="scssVariables.menuText"

@@ -9,7 +9,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     redirect: '/documentation/index',
     children: [
       {
-        path: '/documentation/index',
+        path: 'index',
         name: 'Documentation',
         component: () => import(/* webpackChunkName: "documentation" */ '@/views/documentation/index.vue'),
         meta: {
@@ -63,6 +63,20 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "user" */ '@/views/system/user.vue'),
         meta: {
           title: 'User Management'
+        }
+      }
+    ]
+  },
+  { // 外链路由
+    path: '/external-link',
+    component: Layout,
+    children: [
+      {
+        path: 'https://www.baidu.com/',
+        redirect: '/',
+        meta: {
+          title: 'External Link',
+          icon: 'link'
         }
       }
     ]
