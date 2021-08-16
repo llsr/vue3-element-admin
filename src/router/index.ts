@@ -9,7 +9,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     redirect: '/documentation/index',
     children: [
       {
-        path: 'index',
+        path: '/documentation/index',
         name: 'Documentation',
         component: () => import(/* webpackChunkName: "documentation" */ '@/views/documentation/index.vue'),
         meta: {
@@ -48,24 +48,21 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         path: 'menu',
         component: () => import(/* webpackChunkName: "menu" */ '@/views/system/menu.vue'),
         meta: {
-          title: 'Menu Management',
-          icon: 'list'
+          title: 'Menu Management'
         }
       },
       {
         path: 'role',
         component: () => import(/* webpackChunkName: "role" */ '@/views/system/role.vue'),
         meta: {
-          title: 'Role Management',
-          icon: 'list'
+          title: 'Role Management'
         }
       },
       {
         path: 'user',
         component: () => import(/* webpackChunkName: "user" */ '@/views/system/user.vue'),
         meta: {
-          title: 'User Management',
-          icon: 'list'
+          title: 'User Management'
         }
       }
     ]
@@ -83,7 +80,8 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         name: 'Dashboard',
         component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
         meta: {
-          title: 'Dashboard'
+          title: 'Dashboard',
+          icon: 'dashboard'
         }
       }
     ]
@@ -91,7 +89,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
 ]
 
 export const routes = [
-  ...constantRoutes, // 解构语法可能报波浪线tslib版本升级 没懂 暂时先不管
+  ...constantRoutes,
   ...asyncRoutes
 ]
 
