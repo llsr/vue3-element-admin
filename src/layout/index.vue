@@ -1,18 +1,30 @@
 <template>
   <div class="app-wrapper">
-    <div class="sidebar-container">sidebar</div>
+    <div class="sidebar-container">
+      <Sidebar />
+    </div>
     <div class="main-container">
       <div class="header">
         <div class="navbar">navbar</div>
         <div class="tags-view">tagsview</div>
       </div>
       <div class="app-main">
-        <h2>app main2</h2>
+        <h2>app main</h2>
         <router-view></router-view>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import Sidebar from './components/Sidebar'
+
+export default {
+  components: {
+    Sidebar
+  }
+}
+</script>
 
 <style lang="scss" scoped>
   .app-wrapper {
