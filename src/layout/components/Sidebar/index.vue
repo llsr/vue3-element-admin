@@ -39,7 +39,11 @@ export default defineComponent({
     const route = useRoute() // 等价于 this.$route
     // 根据路由路径 对应 当前激活的菜单
     const activeMenu = computed(() => {
-      const { path } = route
+      const { path, meta } = route
+      // 可根据meta.activeMenu指定 当前路由激活时 让哪个菜单高亮选中
+      if (meta.activeMenu) {
+        return meta.activeMenu
+      }
       return path
     })
     // scss变量

@@ -35,6 +35,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         meta: {
           title: 'Guide',
           icon: 'guide'
+          // 当guide路由激活时高亮选中的是 documentation/index菜单
+          //   activeMenu: '/documentation/index'
         }
       }
     ]
