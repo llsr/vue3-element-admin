@@ -14,7 +14,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "documentation" */ '@/views/documentation/index.vue'),
         meta: {
           title: 'Documentation',
-          icon: 'documentation'
+          icon: 'documentation',
+          hidden: true // 菜单不显示
         }
       }
     ]
@@ -62,7 +63,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         path: 'user',
         component: () => import(/* webpackChunkName: "user" */ '@/views/system/user.vue'),
         meta: {
-          title: 'User Management'
+          title: 'User Management',
+          hidden: true // 菜单不显示
         }
       }
     ]

@@ -1,8 +1,11 @@
 <template>
-  <div class="sidebar-item-container">
+  <div
+    v-if="!item.meta || !item.meta.hidden"
+    class="sidebar-item-container"
+  >
     <!-- 只渲染一个路由 并且路由只有一个子路由时直接渲染这个子路由 -->
     <template
-      v-if="theOnlyOneChildRoute && !theOnlyOneChildRoute.children"
+      v-if="theOnlyOneChildRoute && (!theOnlyOneChildRoute.children || theOnlyOneChildRoute.noShowingChildren)"
     >
       <sidebar-item-link
         v-if="theOnlyOneChildRoute.meta"
@@ -76,6 +79,7 @@ export default defineComponent({
     // 子路由数量
     const showingChildNumber = computed(() => {
       const children = (props.item.children || []).filter(child => {
+        // hidden属性控制路由是否渲染成菜单 像login 401 404等路由都不需要渲染成菜案
         if (child.meta && child.meta.hidden) return false
         return true
       })
@@ -89,20 +93,22 @@ export default defineComponent({
         return null
       }
 
-      // 子路由只有一个时 并且做个hidden筛选
+      // 子路由只有一个时 并且做个hidden筛选 children是数组类型 所以循环下
       if (item.value.children) {
         for (const child of item.value.children) {
-          if (!child.meta || !child.meta.hidden) { // hidden属性控制路由是否渲染成菜单
+          // hidden属性控制路由是否渲染成菜单 像login 401 404等路由都不需要渲染成菜单
+          if (!child.meta || !child.meta.hidden) {
             return child
           }
         }
       }
 
       // showingChildNumber === 0
-      // 没有可渲染chiildren时 把当前路由item作为仅有的子路由渲染
+      // 没有可渲染chiildren时 就渲染当前父路由item 可能children都是hidden或没有
       return {
         ...props.item,
-        path: '' // resolvePath避免resolve拼接时 拼接重复
+        path: '', // resolvePath避免resolve拼接时 拼接重复
+        noShowingChildren: true // 无可渲染chiildren
       }
     })
 
@@ -112,7 +118,7 @@ export default defineComponent({
       return theOnlyOneChildRoute.value?.meta?.icon || (props.item.meta && props.item.meta.icon)
     })
 
-    // 拼接路径 父路径+子路径（相对路径）
+    // 拼接路径 父路径+子路径
     const resolvePath = (childPath: string) => {
       // 如果是带协议外链 直接返回
       if (isExternal(childPath)) {
