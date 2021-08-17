@@ -8,22 +8,23 @@
         <div class="navbar">navbar</div>
         <div class="tags-view">tagsview</div>
       </div>
-      <div class="app-main">
-        <h2>app main</h2>
-        <router-view></router-view>
-      </div>
+      <!-- AppMain router-view -->
+      <app-main />
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import Sidebar from './components/Sidebar'
+import AppMain from './components/AppMain.vue'
 
-export default {
+export default defineComponent({
   components: {
-    Sidebar
+    Sidebar,
+    AppMain
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>
@@ -49,7 +50,6 @@ export default {
       .app-main {
         /* 50= navbar  50  如果有tagsview + 34  */
         min-height: calc(100vh - 84px);
-        background: red;
       }
     }
   }
