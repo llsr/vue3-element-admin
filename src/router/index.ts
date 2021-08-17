@@ -17,8 +17,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
           ),
         meta: {
           title: 'Documentation',
-          icon: 'documentation',
-          hidden: true // 菜单不显示
+          icon: 'documentation'
         }
       }
     ]
