@@ -11,7 +11,10 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
       {
         path: 'index',
         name: 'Documentation',
-        component: () => import(/* webpackChunkName: "documentation" */ '@/views/documentation/index.vue'),
+        component: () =>
+          import(
+            /* webpackChunkName: "documentation" */ '@/views/documentation/index.vue'
+          ),
         meta: {
           title: 'Documentation',
           icon: 'documentation',
@@ -28,7 +31,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
       {
         path: 'index',
         name: 'Guide',
-        component: () => import(/* webpackChunkName: "guide" */ '@/views/guide/index.vue'),
+        component: () =>
+          import(/* webpackChunkName: "guide" */ '@/views/guide/index.vue'),
         meta: {
           title: 'Guide',
           icon: 'guide'
@@ -47,21 +51,24 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     children: [
       {
         path: 'menu',
-        component: () => import(/* webpackChunkName: "menu" */ '@/views/system/menu.vue'),
+        component: () =>
+          import(/* webpackChunkName: "menu" */ '@/views/system/menu.vue'),
         meta: {
           title: 'Menu Management'
         }
       },
       {
         path: 'role',
-        component: () => import(/* webpackChunkName: "role" */ '@/views/system/role.vue'),
+        component: () =>
+          import(/* webpackChunkName: "role" */ '@/views/system/role.vue'),
         meta: {
           title: 'Role Management'
         }
       },
       {
         path: 'user',
-        component: () => import(/* webpackChunkName: "user" */ '@/views/system/user.vue'),
+        component: () =>
+          import(/* webpackChunkName: "user" */ '@/views/system/user.vue'),
         meta: {
           title: 'User Management',
           hidden: true // 菜单不显示
@@ -69,7 +76,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
       }
     ]
   },
-  { // 外链路由
+  {
+    // 外链路由
     path: '/external-link',
     component: Layout,
     children: [
@@ -94,20 +102,21 @@ export const constantRoutes: Array<RouteRecordRaw> = [
       {
         path: 'dashboard',
         name: 'Dashboard',
-        component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'
+          ),
         meta: {
           title: 'Dashboard',
-          icon: 'dashboard'
+          //   icon: 'dashboard'
+          icon: 'el-icon-platform-eleme'
         }
       }
     ]
   }
 ]
 
-export const routes = [
-  ...constantRoutes,
-  ...asyncRoutes
-]
+export const routes = [...constantRoutes, ...asyncRoutes]
 
 const router = createRouter({
   history: createWebHashHistory(),

@@ -19,8 +19,8 @@ module.exports = {
     '@typescript-eslint/interface-name-prefixed': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/ban-ts-ignore': 'off',
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "no-unused-expressions": "off",
-    "@typescript-eslint/no-unused-expressions": "off",
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'no-unused-expressions': 'off',
+    '@typescript-eslint/no-unused-expressions': 'off'
   }
 }

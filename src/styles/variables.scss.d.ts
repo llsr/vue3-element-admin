@@ -8,7 +8,7 @@ export interface ScssVariables {
     subMenuHover: string;
     sideBarWidth: string;
   }
-  
-  export const variables: ScssVariables
-  
-  export default variables
+
+export const variables: ScssVariables
+
+export default variables
