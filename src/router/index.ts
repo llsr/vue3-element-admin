@@ -72,8 +72,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         component: () =>
           import(/* webpackChunkName: "user" */ '@/views/system/user.vue'),
         meta: {
-          title: 'User Management',
-          hidden: true // 菜单不显示
+          title: 'User Management'
+          //   hidden: true // 菜单不显示
         }
       }
     ]

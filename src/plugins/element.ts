@@ -7,7 +7,11 @@ import {
   ElMessageBox,
   ElMenu,
   ElMenuItem,
-  ElSubmenu
+  ElSubmenu,
+  ElRow,
+  ElCol,
+  ElBreadcrumb,
+  ElBreadcrumbItem
 } from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 // Element Plus 组件内部默认使用英语
@@ -17,7 +21,7 @@ import lang from 'element-plus/lib/locale/lang/zh-cn'
 import 'dayjs/locale/zh-cn'
 
 // $ELEMENT size属性类型
-export type Size = 'default' | 'medium' | 'small' | 'mini'
+export type Size = 'default' | 'medium' | 'small' | 'mini';
 
 export default (app: App): void => {
   locale(lang)
@@ -30,7 +34,11 @@ export default (app: App): void => {
     ElMessageBox,
     ElMenu,
     ElMenuItem,
-    ElSubmenu
+    ElSubmenu,
+    ElRow,
+    ElCol,
+    ElBreadcrumb,
+    ElBreadcrumbItem
   ]
 
   components.forEach(component => {

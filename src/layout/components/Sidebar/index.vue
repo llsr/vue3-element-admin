@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- 测试展开收起 -->
-    <div @click="isCollapse=!isCollapse">展收测试</div>
     <el-menu
       class="sidebar-container-menu"
       mode="vertical"
@@ -23,12 +21,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import variables from '@/styles/variables.scss'
-// 导入路由表
 import { routes } from '@/router'
 import SidebarItem from './SidebarItem.vue'
+import { useStore } from '@/store'
 
 export default defineComponent({
   name: 'Sidebar',
@@ -36,27 +34,23 @@ export default defineComponent({
     SidebarItem
   },
   setup() {
-    const route = useRoute() // 等价于 this.$route
+    const route = useRoute()
+    const store = useStore()
     // 根据路由路径 对应 当前激活的菜单
     const activeMenu = computed(() => {
-      const { path, meta } = route
-      // 可根据meta.activeMenu指定 当前路由激活时 让哪个菜单高亮选中
-      if (meta.activeMenu) {
-        return meta.activeMenu
-      }
+      const { path } = route
       return path
     })
     // scss变量
     const scssVariables = computed(() => variables)
-    // 展开收起状态 稍后放store
-    const isCollapse = ref(false)
+    // 展开收起状态 稍后放store 当前是展开就让它收起
+    const isCollapse = computed(() => !store.getters.sidebar.opened)
 
     // 渲染路由
     const menuRoutes = computed(() => routes)
 
     return {
-      // 不有toRefs原因 缺点在这里 variables里面变量属性感觉来源不明确 不知道有哪些变量值
-      // ...toRefs(variables),
+      // ...toRefs(variables), // 不有toRefs原因 缺点variables里面变量属性来源不明确
       scssVariables,
       isCollapse,
       activeMenu,
