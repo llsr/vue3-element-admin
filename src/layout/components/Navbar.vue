@@ -5,6 +5,10 @@
     <div class="right-menu">
       <!-- 全屏 -->
       <screenfull id="screefull" class="right-menu-item hover-effect" />
+      <!-- element组件size切换 -->
+      <el-tooltip content="Global Size" effect="dark" placement="bottom">
+        <size-select class="right-menu-item hover-effect" />
+      </el-tooltip>
     </div>
   </div>
 </template>
@@ -15,13 +19,15 @@ import Breadcrumb from '@/components/Breadcrumb/index.vue'
 import Hambuger from '@/components/Hambuger/index.vue'
 import { useStore } from '@/store/index'
 import Screenfull from '@/components/Screenfull/index.vue'
+import SizeSelect from '@/components/SizeSelect/index.vue'
 
 export default defineComponent({
   name: 'Navbar',
   components: {
     Breadcrumb,
     Hambuger,
-    Screenfull
+    Screenfull,
+    SizeSelect
   },
   setup() {
     // 使用我们自定义的useStore 具备类型提示
@@ -50,6 +56,20 @@ export default defineComponent({
       align-items: center;
       justify-content: flex-end;
       padding-right: 15px;
+      &-item {
+        padding: 0 8px;
+        font-size: 18px;
+        color: #5a5e66;
+        vertical-align: text-bottom;
+        &.hover-effect {
+          cursor: pointer;
+          transition: background .3s;
+
+          &:hover {
+            background: rgba(0, 0, 0, .025);
+          }
+        }
+      }
     }
   }
 </style>

@@ -14,11 +14,15 @@ import '@/styles/index.scss'
 import initSvgIcon from '@/icons/index'
 
 const app = createApp(App)
+// 获取store里存储的size
+const size = store.state.app.size
 
 app
   .use(store, key)
   .use(router)
-  .use(installElementPlus)
+  .use(installElementPlus, {
+    size
+  })
   .use(initSvgIcon)
   .mount('#app')
 
