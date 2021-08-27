@@ -2,6 +2,10 @@
   <div class="navbar">
     <hambuger  @toggleClick="toggleSidebar" :is-active="sidebar.opened"/>
     <breadcrumb />
+    <div class="right-menu">
+      <!-- 全屏 -->
+      <screenfull id="screefull" class="right-menu-item hover-effect" />
+    </div>
   </div>
 </template>
 
@@ -10,12 +14,14 @@ import { defineComponent, computed } from 'vue'
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
 import Hambuger from '@/components/Hambuger/index.vue'
 import { useStore } from '@/store/index'
+import Screenfull from '@/components/Screenfull/index.vue'
 
 export default defineComponent({
   name: 'Navbar',
   components: {
     Breadcrumb,
-    Hambuger
+    Hambuger,
+    Screenfull
   },
   setup() {
     // 使用我们自定义的useStore 具备类型提示
@@ -34,3 +40,16 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss">
+  .navbar {
+    display: flex;
+    .right-menu {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 15px;
+    }
+  }
+</style>
