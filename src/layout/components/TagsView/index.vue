@@ -12,7 +12,9 @@
         tag="span"
       >
         {{ tag.title }}
+        <!-- affix固定的路由tag是无法删除 -->
         <span
+          v-if="!isAffix(tag)"
           class="el-icon-close"
           @click.prevent.stop="closeSelectedTag(tag)"
         ></span>
@@ -26,6 +28,8 @@ import { defineComponent, computed, watch, onMounted } from 'vue'
 import { useRoute, RouteRecordRaw, useRouter } from 'vue-router'
 import { useStore } from '@/store'
 import { RouteLocationWithFullPath } from '@/store/modules/tagsView'
+import { routes } from '@/router'
+import path from 'path'
 
 export default defineComponent({
   name: 'TagsView',
@@ -35,6 +39,43 @@ export default defineComponent({
     const route = useRoute()
     // 可显示的tags view
     const visitedTags = computed(() => store.state.tagsView.visitedViews)
+
+    // 从路由表中过滤出要affixed tagviews
+    const fillterAffixTags = (routes: Array<RouteLocationWithFullPath | RouteRecordRaw>, basePath = '/') => {
+      let tags: RouteLocationWithFullPath[] = []
+      routes.forEach(route => {
+        if (route.meta && route.meta.affix) {
+          // 把路由路径解析成完整路径，路由可能是相对路径
+          const tagPath = path.resolve(basePath, route.path)
+          tags.push({
+            name: route.name,
+            path: tagPath,
+            fullPath: tagPath,
+            meta: { ...route.meta }
+          } as RouteLocationWithFullPath)
+        }
+
+        // 深度优先遍历 子路由（子路由路径可能相对于route.path父路由路径）
+        if (route.children) {
+          const childTags = fillterAffixTags(route.children, route.path)
+          if (childTags.length) {
+            tags = [...tags, ...childTags]
+          }
+        }
+      })
+      return tags
+    }
+
+    // 初始添加affix的tag
+    const initTags = () => {
+      const affixTags = fillterAffixTags(routes)
+      for (const tag of affixTags) {
+        if (tag.name) {
+          store.dispatch('tagsView/addVisitedView', tag)
+        }
+      }
+    }
+
     // 添加tag
     const addTags = () => {
       const { name } = route
@@ -50,6 +91,7 @@ export default defineComponent({
 
     // 最近当前router到tags view
     onMounted(() => {
+      initTags()
       addTags()
     })
 
@@ -86,10 +128,16 @@ export default defineComponent({
       })
     }
 
+    // 是否是始终固定在tagsview上的tag
+    const isAffix = (tag: RouteLocationWithFullPath) => {
+      return tag.meta && tag.meta.affix
+    }
+
     return {
       visitedTags,
       isActive,
-      closeSelectedTag
+      closeSelectedTag,
+      isAffix
     }
   }
 })

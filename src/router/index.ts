@@ -122,7 +122,8 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         meta: {
           title: 'Dashboard',
           // icon: 'dashboard'
-          icon: 'el-icon-platform-eleme'
+          icon: 'el-icon-platform-eleme',
+          affix: true // 固定显示在tagsView中
         }
       }
     ]
