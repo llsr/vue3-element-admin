@@ -1,7 +1,6 @@
 <template>
   <div class="tags-view-container">
     <div class="tags-view-wrapper">
-      <!-- 一个个tag view就是router-link -->
       <router-link
         class="tags-view-item"
         :class="{
@@ -12,7 +11,7 @@
         :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
         tag="span"
       >
-        {{ tag.meta.title }}
+        {{ tag.title }}
         <span
           class="el-icon-close"
           @click.prevent.stop="closeSelectedTag(tag)"
@@ -24,15 +23,17 @@
 
 <script lang="ts">
 import { defineComponent, computed, watch, onMounted } from 'vue'
-import { useRoute, RouteRecordRaw } from 'vue-router'
+import { useRoute, RouteRecordRaw, useRouter } from 'vue-router'
 import { useStore } from '@/store'
+import { RouteLocationWithFullPath } from '@/store/modules/tagsView'
 
 export default defineComponent({
   name: 'TagsView',
   setup() {
     const store = useStore()
+    const router = useRouter()
     const route = useRoute()
-    // 从store里获取 可显示的tags view
+    // 可显示的tags view
     const visitedTags = computed(() => store.state.tagsView.visitedViews)
     // 添加tag
     const addTags = () => {
@@ -52,14 +53,37 @@ export default defineComponent({
       addTags()
     })
 
-    // 是否是当前应该激活的tag
+    // 当前是否是激活的tag
     const isActive = (tag: RouteRecordRaw) => {
       return tag.path === route.path
     }
 
+    // 让删除后tags view集合中最后一个为选中状态
+    const toLastView = (visitedViews: RouteLocationWithFullPath[], view: RouteLocationWithFullPath) => {
+      // 得到集合中最后一个项tag view 可能没有
+      const lastView = visitedViews[visitedViews.length - 1]
+      if (lastView) {
+        router.push(lastView.fullPath as string)
+      } else { // 集合中都没有tag view时
+        // 如果刚刚删除的正是Dashboard 就重定向回Dashboard（首页）
+        if (view.name === 'Dashboard') {
+          router.replace({ path: '/redirect' + view.fullPath as string })
+        } else {
+          // tag都没有了 删除的也不是Dashboard 只能跳转首页
+          router.push('/')
+        }
+      }
+    }
+
     // 关闭当前右键的tag路由
-    const closeSelectedTag = (view: RouteRecordRaw) => {
-      store.dispatch('tagsView/delView', view)
+    const closeSelectedTag = (view: RouteLocationWithFullPath) => {
+      // 关掉并移除view
+      store.dispatch('tagsView/delView', view).then(() => {
+        // 如果移除的view是当前选中状态view, 就让删除后的集合中最后一个tag view为选中态
+        if (isActive(view)) {
+          toLastView(visitedTags.value, view)
+        }
+      })
     }
 
     return {

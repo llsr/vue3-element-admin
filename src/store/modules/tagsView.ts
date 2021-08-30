@@ -1,10 +1,14 @@
 import { Module, ActionTree, MutationTree } from 'vuex'
-import { RouteRecordRaw } from 'vue-router'
+import { RouteRecordRaw, RouteRecordNormalized } from 'vue-router'
 import { IRootState } from '@/store'
 
+// 携带fullPath
+export interface RouteLocationWithFullPath extends RouteRecordNormalized {
+  fullPath?: string;
+}
 export interface ITagsViewState {
   // 存放当前显示的tags view集合
-  visitedViews: RouteRecordRaw[];
+  visitedViews: RouteLocationWithFullPath[];
 }
 
 // 定义mutations
@@ -13,7 +17,7 @@ const mutations: MutationTree<ITagsViewState> = {
   ADD_VISITED_VIEW(state, view) {
     // 过滤去重
     if (state.visitedViews.some(v => v.path === view.path)) return
-    // 没有title时处理
+    // 没有titles时处理
     state.visitedViews.push(
       Object.assign({}, view, {
         title: view.meta.title || 'tag-name'
@@ -40,7 +44,10 @@ const actions: ActionTree<ITagsViewState, IRootState> = {
   },
   // 删除tags view
   delView({ dispatch }, view: RouteRecordRaw) {
-    dispatch('delVisitedView', view)
+    return new Promise(resolve => {
+      dispatch('delVisitedView', view)
+      resolve(null)
+    })
   },
   // 从可显示的集合中 删除tags view
   delVisitedView({ commit }, view: RouteRecordRaw) {
