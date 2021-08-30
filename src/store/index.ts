@@ -2,13 +2,13 @@ import { InjectionKey } from 'vue'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import app, { IAppState } from '@/store/modules/app'
-import test, { ICountState } from './modules/test'
+import tagsView, { ITagsViewState } from '@/store/modules/tagsView'
 import getters from './getters'
 
 // 模块声明在根状态下
 export interface IRootState {
   app: IAppState;
-  test: ICountState;
+  tagsView: ITagsViewState;
 }
 
 // 通过下面方式使用 TypeScript 定义 store 能正确地为 store 提供类型声明。
@@ -31,21 +31,12 @@ const persisteAppState = createPersistedState({
   paths: ['app.sidebar.opened', 'app.size'] // 通过点连接符指定state路径
 })
 
-// 针对test模块持久化
-const persisteTestState = createPersistedState({
-  storage: window.sessionStorage,
-  key: 'vuex_test',
-  paths: ['test'] // 针对test这个模块持久化
-})
 export default createStore<IRootState>({
-  plugins: [
-    persisteAppState,
-    persisteTestState // 只是测试持久化
-  ],
+  plugins: [persisteAppState],
   getters,
   modules: {
     app,
-    test
+    tagsView
   }
 })
 
