@@ -28,11 +28,11 @@ import {
   getCurrentInstance,
   ComponentInternalInstance,
   ComponentPublicInstance,
-  computed,
-  nextTick
+  computed
 } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from '@/store'
+import { nextTick } from 'process'
 
 export default defineComponent({
   name: 'SizeSelect',
@@ -41,7 +41,7 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
     const { proxy } = getCurrentInstance() as ComponentInternalInstance
-    // store中获取size 这里需要注意通过computed获取store状态 确保获取到正确更新
+    // store中获取size
     const size = computed(() => store.getters.size)
     // element size 选项
     const sizeOptions = ref([
@@ -53,9 +53,11 @@ export default defineComponent({
 
     // 刷新当前路由
     const refreshView = () => {
+      // 需要清除路由缓存 否则size配置改变后组件size状态被缓存不更新
+      store.dispatch('tagsView/delAllCachedViews')
       const { fullPath } = route
       nextTick(() => {
-        // 重定向到中间页 实现vue中当前路由刷新
+        // 跳转到重定向中间页 实现当前路由刷新
         router.replace({
           path: '/redirect' + fullPath
         })
