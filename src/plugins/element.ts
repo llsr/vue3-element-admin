@@ -15,7 +15,8 @@ import {
   ElTooltip,
   ElDropdown,
   ElDropdownMenu,
-  ElDropdownItem
+  ElDropdownItem,
+  ElScrollbar
 } from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 // Element Plus 组件内部默认使用英语
@@ -50,7 +51,8 @@ export default (app: App, options: ElementOptions): void => {
     ElTooltip,
     ElDropdown,
     ElDropdownMenu,
-    ElDropdownItem
+    ElDropdownItem,
+    ElScrollbar
   ]
 
   components.forEach(component => {
