@@ -7,6 +7,10 @@
             :class="{
               active: isActive(tag)
             }"
+            :style="{
+              backgroundColor: isActive(tag) ? themeColor : '',
+              borderColor: isActive(tag) ? themeColor : ''
+            }"
             v-for="(tag, index) in visitedTags"
             :key="index"
             :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
@@ -206,12 +210,16 @@ export default defineComponent({
       })
     }
 
+    // 获取主题色
+    const themeColor = computed(() => store.getters.themeColor)
+
     return {
       visitedTags,
       isActive,
       closeSelectedTag,
       isAffix,
-      handleTagCommand
+      handleTagCommand,
+      themeColor
     }
   }
 })
@@ -244,9 +252,9 @@ export default defineComponent({
         margin-right: 15px;
       }
       &.active {
-        background-color: #42b983;
+        background-color: #409EFF;
         color: #fff;
-        border-color: #42b983;
+        border-color: #409EFF;
         ::v-deep {
           .el-dropdown {
             color: #fff;

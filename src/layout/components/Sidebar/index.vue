@@ -6,7 +6,7 @@
       :default-active="activeMenu"
       :background-color="scssVariables.menuBg"
       :text-color="scssVariables.menuText"
-      :active-text-color="scssVariables.menuActiveText"
+      :active-text-color="themeColor"
       :collapse="isCollapse"
       :collapse-transition="true"
     >
@@ -38,7 +38,11 @@ export default defineComponent({
     const store = useStore()
     // 根据路由路径 对应 当前激活的菜单
     const activeMenu = computed(() => {
-      const { path } = route
+      const { path, meta } = route
+      // 可根据meta.activeMenu指定 当前路由激活时 让哪个菜单高亮选中
+      if (meta.activeMenu) {
+        return meta.activeMenu
+      }
       return path
     })
     // scss变量
@@ -49,12 +53,16 @@ export default defineComponent({
     // 渲染路由
     const menuRoutes = computed(() => routes)
 
+    // 获取主题色
+    const themeColor = computed(() => store.getters.themeColor)
+
     return {
       // ...toRefs(variables), // 不有toRefs原因 缺点variables里面变量属性来源不明确
       scssVariables,
       isCollapse,
       activeMenu,
-      menuRoutes
+      menuRoutes,
+      themeColor
     }
   }
 })

@@ -5,28 +5,56 @@
     </div>
     <div class="main-container">
       <div class="header">
-        <navbar />
+        <navbar @showSetting="openSetting" />
         <tags-view />
       </div>
       <!-- AppMain router-view -->
       <app-main />
     </div>
+    <right-panel
+      v-model="showSetting"
+      title="样式风格设置"
+      :size="SettingsPanelWidth"
+    >
+      <!-- settings 面板设置组件 -->
+      <settings />
+    </right-panel>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import Sidebar from './components/Sidebar/index.vue'
 import AppMain from './components/AppMain.vue'
 import Navbar from './components/Navbar.vue'
 import TagsView from './components/TagsView/index.vue'
+import RightPanel from '@/components/RightPanel/index.vue'
+import Settings from './components/Settings/index.vue'
+import varibalse from '@/styles/variables.scss'
 
 export default defineComponent({
   components: {
     Sidebar,
     AppMain,
     Navbar,
-    TagsView
+    TagsView,
+    RightPanel,
+    Settings
+  },
+  setup() {
+    // rightPanel显示隐藏状态
+    const showSetting = ref(false)
+
+    const openSetting = () => {
+      showSetting.value = true
+    }
+
+    return {
+      showSetting,
+      openSetting,
+      // 调整panel宽度
+      SettingsPanelWidth: varibalse.settingPanelWidth
+    }
   }
 })
 </script>

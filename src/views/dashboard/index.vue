@@ -3,6 +3,7 @@
     <h1>Dashboard page</h1>
     缓存测试 <input type="text">
     <el-button type="primary">size改变</el-button>
+    <el-button type="primary" icon="el-icon-search">搜索</el-button>
   </div>
 </template>
 
