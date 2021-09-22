@@ -1,8 +1,9 @@
 import { useFetch } from './useFetch'
-import pkgJson from 'element-plus/package.json'
+// import pkgJson from 'element-plus/package.json'
 
 // 获取element-plus版本
-const version = pkgJson.version
+// const version = pkgJson.version
+const version = '1.1.0-beta.11'
 interface ReturnFn {
   getThemeChalkStyle: () => Promise<unknown>;
 }
