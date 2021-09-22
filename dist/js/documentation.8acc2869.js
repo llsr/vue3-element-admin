@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["documentation"],{"3c34":function(n,t,e){"use strict";e.r(t);var c=e("889d");const o=Object(c["o"])("h1",null,"Documentation page",-1),u=Object(c["q"])(" 缓存测试"),a=Object(c["o"])("input",{type:"text"},null,-1),i=[o,u,a];function p(n,t){return Object(c["M"])(),Object(c["n"])("div",null,i)}var r={name:"Documentation"};r.render=p;t["default"]=r}}]);
+//# sourceMappingURL=documentation.8acc2869.js.map

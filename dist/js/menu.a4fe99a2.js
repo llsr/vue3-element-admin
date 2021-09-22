@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["menu"],{"5d8a":function(n,e,u){"use strict";u.r(e);var t=u("889d");const c=Object(t["o"])("h1",null,"Menu page",-1),a=[c];function o(n,e){return Object(t["M"])(),Object(t["n"])("div",null,a)}var r={name:"Menu"};r.render=o;e["default"]=r}}]);
+//# sourceMappingURL=menu.a4fe99a2.js.map
