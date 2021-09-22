@@ -6,7 +6,7 @@
     <div class="main-container">
       <div class="header">
         <navbar @showSetting="openSetting" />
-        <tags-view />
+        <tags-view v-if="showTagsView" />
       </div>
       <!-- AppMain router-view -->
       <app-main />
@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import Sidebar from './components/Sidebar/index.vue'
 import AppMain from './components/AppMain.vue'
 import Navbar from './components/Navbar.vue'
@@ -31,6 +31,7 @@ import TagsView from './components/TagsView/index.vue'
 import RightPanel from '@/components/RightPanel/index.vue'
 import Settings from './components/Settings/index.vue'
 import varibalse from '@/styles/variables.scss'
+import { useStore } from '@/store'
 
 export default defineComponent({
   components: {
@@ -42,16 +43,20 @@ export default defineComponent({
     Settings
   },
   setup() {
+    const store = useStore()
     // rightPanel显示隐藏状态
     const showSetting = ref(false)
 
     const openSetting = () => {
       showSetting.value = true
     }
+    // 是否显示tagsView
+    const showTagsView = computed(() => store.state.settings.tagsView)
 
     return {
       showSetting,
       openSetting,
+      showTagsView,
       // 调整panel宽度
       SettingsPanelWidth: varibalse.settingPanelWidth
     }

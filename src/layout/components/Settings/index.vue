@@ -2,20 +2,45 @@
   <div class="drawer-container">
     <div class="drawer-item">
       <span>主题色</span>
-       <!-- 主题组件 -->
       <theme-picker />
+    </div>
+
+    <div class="drawer-item">
+      <span>Open Tags-View</span>
+      <el-switch v-model="tagsView" class="drawer-switch" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import ThemePicker from '@/components/ThemePicker/index.vue'
+import { useStore } from '@/store'
 
 export default defineComponent({
   name: 'Settings',
   components: {
     ThemePicker
+  },
+  setup() {
+    const store = useStore()
+    const tagsView = computed({
+      get() {
+        // 获取store中tagsView状态
+        return store.state.settings.tagsView
+      },
+      set(val) {
+        // switch修改后 派发action同步store中tagsview值
+        store.dispatch('settings/changeSetting', {
+          key: 'tagsView',
+          value: val
+        })
+      }
+    })
+
+    return {
+      tagsView
+    }
   }
 })
 </script>
