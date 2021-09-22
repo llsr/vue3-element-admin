@@ -9,6 +9,11 @@
       <span>Open Tags-View</span>
       <el-switch v-model="tagsView" class="drawer-switch" />
     </div>
+    <!-- 侧边栏 logo -->
+    <div class="drawer-item">
+        <span>Sidebar Logo</span>
+        <el-switch v-model="showSidebarLogo" class="drawer-switch"></el-switch>
+    </div>
   </div>
 </template>
 
@@ -37,9 +42,21 @@ export default defineComponent({
         })
       }
     })
+    const showSidebarLogo = computed({
+      get() {
+        return store.state.settings.sidebarLogo
+      },
+      set(val) {
+        store.dispatch('settings/changeSetting', {
+          key: 'sidebarLogo',
+          value: val
+        })
+      }
+    })
 
     return {
-      tagsView
+      tagsView,
+      showSidebarLogo
     }
   }
 })

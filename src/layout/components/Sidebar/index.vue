@@ -1,5 +1,6 @@
 <template>
   <div>
+    <logo v-if="showLogo" :collapse="isCollapse" />
     <el-menu
       class="sidebar-container-menu"
       mode="vertical"
@@ -27,10 +28,12 @@ import variables from '@/styles/variables.scss'
 import { routes } from '@/router'
 import SidebarItem from './SidebarItem.vue'
 import { useStore } from '@/store'
+import Logo from './Logo.vue'
 
 export default defineComponent({
   name: 'Sidebar',
   components: {
+    Logo,
     SidebarItem
   },
   setup() {
@@ -56,13 +59,17 @@ export default defineComponent({
     // 获取主题色
     const themeColor = computed(() => store.getters.themeColor)
 
+    // 是否显示logo
+    const showLogo = computed(() => store.state.settings.sidebarLogo)
+
     return {
       // ...toRefs(variables), // 不有toRefs原因 缺点variables里面变量属性来源不明确
       scssVariables,
       isCollapse,
       activeMenu,
       menuRoutes,
-      themeColor
+      themeColor,
+      showLogo
     }
   }
 })

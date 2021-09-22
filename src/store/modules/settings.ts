@@ -6,13 +6,15 @@ export interface ISettingsState {
   theme: string;
   tagsView: boolean;
   originalStyle: string;
+  sidebarLogo: boolean;
 }
 
 // 定义state
 const state: ISettingsState = {
   theme: variables.theme,
   tagsView: true,
-  originalStyle: ''
+  originalStyle: '',
+  sidebarLogo: true
 }
 
 // 动态key的情况下 根据不同的key 约束对应value
