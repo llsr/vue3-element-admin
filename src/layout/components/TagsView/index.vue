@@ -50,7 +50,7 @@ import { useRoute, RouteRecordRaw, useRouter } from 'vue-router'
 import { useStore } from '@/store'
 import { RouteLocationWithFullPath } from '@/store/modules/tagsView'
 import { routes } from '@/router'
-import ScrollPanel from './ScrollPanel.vue'
+import ScrollPanel from '@/components/ScrollPanel.vue'
 
 // 右键菜单
 enum TagCommandType {

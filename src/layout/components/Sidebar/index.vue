@@ -1,23 +1,28 @@
 <template>
-  <div>
+  <div class="sidebar-wrapper">
     <logo v-if="showLogo" :collapse="isCollapse" />
-    <el-menu
-      class="sidebar-container-menu"
-      mode="vertical"
-      :default-active="activeMenu"
-      :background-color="scssVariables.menuBg"
-      :text-color="scssVariables.menuText"
-      :active-text-color="themeColor"
-      :collapse="isCollapse"
-      :collapse-transition="true"
-    >
-      <sidebar-item
-        v-for="route in menuRoutes"
-        :key="route.path"
-        :item="route"
-        :base-path="route.path"
-      />
-    </el-menu>
+    <scroll-panel>
+      <el-menu
+        class="sidebar-container-menu"
+        :class="{
+          'sidebar-show-logo': showLogo
+        }"
+        mode="vertical"
+        :default-active="activeMenu"
+        :background-color="scssVariables.menuBg"
+        :text-color="scssVariables.menuText"
+        :active-text-color="themeColor"
+        :collapse="isCollapse"
+        :collapse-transition="true"
+      >
+        <sidebar-item
+          v-for="route in menuRoutes"
+          :key="route.path"
+          :item="route"
+          :base-path="route.path"
+        />
+      </el-menu>
+    </scroll-panel>
   </div>
 </template>
 
@@ -29,12 +34,14 @@ import { routes } from '@/router'
 import SidebarItem from './SidebarItem.vue'
 import { useStore } from '@/store'
 import Logo from './Logo.vue'
+import ScrollPanel from '@/components/ScrollPanel.vue'
 
 export default defineComponent({
   name: 'Sidebar',
   components: {
     Logo,
-    SidebarItem
+    SidebarItem,
+    ScrollPanel
   },
   setup() {
     const route = useRoute()
@@ -74,3 +81,14 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+  .sidebar-wrapper {
+    .sidebar-container-menu {
+      height: 100vh;
+      &.sidebar-show-logo {
+        height: calc(100vh - 50px);
+      }
+    }
+  }
+</style>
