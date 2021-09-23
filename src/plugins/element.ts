@@ -19,7 +19,10 @@ import {
   ElScrollbar,
   ElDrawer,
   ElColorPicker,
-  ElSwitch
+  ElSwitch,
+  ElForm,
+  ElFormItem,
+  ElInput
 } from 'element-plus'
 // 默认主题
 import 'element-plus/lib/theme-chalk/index.css'
@@ -60,7 +63,10 @@ export default (app: App, options: ElementOptions): void => {
     ElScrollbar,
     ElDrawer,
     ElColorPicker,
-    ElSwitch
+    ElSwitch,
+    ElForm,
+    ElFormItem,
+    ElInput
   ]
 
   components.forEach(component => {
