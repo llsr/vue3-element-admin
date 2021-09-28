@@ -36,6 +36,14 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
+    },
+    proxy: {
+      '/dev-api': {
+        target: 'http://localhost:3003',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: { '^/dev-api': '/api' }
+      }
     }
   }
 }

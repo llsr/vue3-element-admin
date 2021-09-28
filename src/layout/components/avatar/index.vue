@@ -22,12 +22,16 @@
 </template>
 
 <script lang="ts">
+import { useRouter } from 'vue-router'
 import avatar from '@/assets/logo.png'
 import { defineComponent } from 'vue'
 export default defineComponent({
   setup() {
+    const router = useRouter()
     const logout = () => {
-      console.log('退出登录')
+      router.push({
+        path: '/login'
+      })
     }
     return {
       logout,
